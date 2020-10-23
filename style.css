@@ -1,0 +1,50 @@
+header{
+    background-color: black;
+    padding:20px;
+    color:white;
+    text-align: center;
+}
+ 
+
+.data{
+    border:1px solid grey;
+    padding:12px;
+    margin-top:10px;
+}
+.boards h3{
+    margin-top:20px;
+}
+
+.board{
+    height:180px;
+    width:140px;
+    margin-left:18px;
+    background-color: cornflowerblue;
+}
+
+aside{
+    background-color:#F8F8F8;
+}
+
+aside h3, aside input{
+    margin-left:5%;
+}
+
+#search{
+    width:250px;
+}
+
+div.row{
+    width:100%;
+}
+
+.input{
+    margin-left:1%;
+}
+
+div.boards h5, div.boards p{
+    margin-left:5%;
+    margin-top:8%;
+    color:white;
+}
+ 
