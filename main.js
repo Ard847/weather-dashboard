@@ -7,8 +7,10 @@ const futureurlquery = 'https://api.openweathermap.org/data/2.5/forecast?q='
 
 
 const button = document.querySelector("button");
-button.addEventListener("click",function(){
+button.addEventListener("click",function(event){
+    event.preventDefault()
     begin()
+    store()
 })
 
 function begin(){
@@ -21,9 +23,6 @@ function begin(){
     $.ajax({
         url: currenturlquery + city +key
     }).then(process).then(future(city)).catch(error)
-
-
-
 }
 
 function process(response){
@@ -49,8 +48,16 @@ function process(response){
     }).then(function(data){
         const uv = data[0].value
         //console.log('uv',uv)
-        const U_V = document.querySelector("#UV")
-        U_V.textContent ="UV index: " + uv
+        const u_v =  document.querySelector("#uv_span")
+        u_v.textContent = uv
+        u_v.style.height = "10px"
+       if(uv < 3){
+            u_v.style.backgroundColor = "green"; 
+       }if(uv >= 3 && uv <= 5){
+            u_v.style.backgroundColor = "yellow"
+       }if(uv >5){
+            u_v.style.backgroundColor = "red"
+       }
     }).catch(error)
      
 }
@@ -142,5 +149,133 @@ function future(city){
         })
 
     }).catch(error)
-
 }
+
+function store(){
+    const cityName =  document.querySelector("#search").value
+    const historic = document.querySelector("#historic")
+    const p = document.createElement("button")
+    let value = JSON.parse(localStorage.getItem("city"))
+    let cityObject = {
+        city : cityName
+    }
+
+    if(value == null){
+        console.log("here")
+        localStorage.setItem('city',JSON.stringify(cityObject))
+        historic.append(p)
+        p.textContent = cityName
+        p.setAttribute("class",'btn btn-outline-secondary button')
+        p.id = cityName
+    }else{ 
+        console.log("im here")
+        value.city +=","+ cityName
+        localStorage.setItem('city',JSON.stringify(value))
+        let array = value.city.split(',') 
+        for(cities of array){
+            p.textContent = ""
+            p.textContent = cities
+            historic.append(p)
+            p.setAttribute("class",'btn btn-outline-secondary button')
+            p.id =cityName
+        }
+        p.addEventListener("click",function(event){
+            event.preventDefault()
+            const currentDay = moment().format('M/D/YYYY')
+            const c = document.querySelector("#city")
+            c.textContent = p.id + " (" + currentDay + ")"
+             $.ajax({
+                url: currenturlquery + p.id +key
+            }).then(process).then(future(p.id)).catch(error)
+            })
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*let array;
+    if(value == null){
+        localStorage.setItem("city",city)
+        const p = document.createElement("p")
+        historic.append(p)
+        p.textContent = city
+    }if(value != city && value != null){
+        array = [value,city]
+        localStorage.setItem("city",array)
+        const p = document.createElement("p")
+        const p1 = document.createElement("p")
+        historic.append(p)
+        p.textContent = city
+        p1.textContent = value
+    }
+    console.log(array.len)
+    if(value == city){
+        console.log("'l")
+    }*/

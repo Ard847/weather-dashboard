@@ -47,4 +47,14 @@ div.boards h5, div.boards p{
     margin-top:8%;
     color:white;
 }
- 
+#historic{
+    margin-top:5%;
+}
+.button{
+    display: block;
+    background-color: white;
+    margin-left:5%;
+    width:90%;
+    height:50px;
+    text-align: left;
+}
