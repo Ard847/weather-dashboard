@@ -1,4 +1,4 @@
-
+alert("Search for a city")
 const key = '&appid=90d09eb7cd3006afae982b7097c6c2d2'
 const days = 5
 const currenturlquery = 'https://api.openweathermap.org/data/2.5/weather?q=' 
