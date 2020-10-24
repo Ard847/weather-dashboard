@@ -19,6 +19,7 @@ header{
     height:180px;
     width:140px;
     margin-left:18px;
+    margin-bottom:5%;
     background-color: cornflowerblue;
 }
 
@@ -58,3 +59,23 @@ div.boards h5, div.boards p{
     height:50px;
     text-align: left;
 }
+ 
+.img{
+    height:30px;
+    width:30px;
+    display:inline;
+}
+
+.weather{
+    display:none;
+    height:30px;
+    width:30px;
+    margin-left:35%;
+}
+
+
+h2#city{
+    display:inline;
+}
+
+    

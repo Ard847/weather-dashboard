@@ -27,22 +27,42 @@ function begin(){
 
 function process(response){
     //console.log(response)
-    const temp = response.main.temp
+    const temp = Math.floor((response.main.temp - 273.15))
     const humidity = response.main.humidity
     const wind = response.wind.speed
     const lon = response.coord.lon
     const lat = response.coord.lat
+    const weather = response.weather[0].main
+    const img = document.querySelector("#weather")
+    console.log(weather)
+     
+    if(weather == 'Clouds' || weather == 'Haze'){
+        console.log("here")
+        img.src =  './Assets/clouds.png'
+    }
+    if(weather == 'Clear'){ 
+        img.src = 'Assets/sunny.png'
+    }
+    if(weather == 'Rain'){ 
+        img.src = 'Assets/rainy.png'
+    }
+    if(weather == 'Snow'){
+        let src = 'Assets/snow.png'
+    }
+    img.setAttribute("class","img")
     //console.log('temp',temp)
+    
     const temperature = document.querySelector("#temperature")
-    temperature.textContent ="Temperature: "+ temp + "°F"
+    temperature.textContent ="Temperature: "+ temp + "°C"
     //console.log('humidity',humidity)
-    const hum= document.querySelector("#Humidity")
+    const hum = document.querySelector("#Humidity")
     hum.textContent ="Humidity: " + humidity + "%"
     //console.log('wind',wind)
     const win = document.querySelector("#wind")
     win.textContent ="Wind Speed: " + wind + "MPH"
     //console.log('lon',lon)
     //console.log('lat',lat)
+
     $.ajax({
         url: UVUrl + lat + "&lon=" + lon + key
     }).then(function(data){
@@ -77,10 +97,13 @@ function future(city){
     const dates = document.querySelectorAll(".date")
     const Tempera = document.querySelectorAll(".temperature")
     const humi = document.querySelectorAll(".Humidity")
+    const board = document.querySelectorAll(".board")
+    const img = document.querySelectorAll(".weather")
 
 
     let tempArray = []
     let humArray=[]
+    let weatherArray = []
     tempArray.length = 5
     humArray.length = 5
 
@@ -106,37 +129,61 @@ function future(city){
             for(datas of data.list){
                 //console.log(datas.dt_txt)
                 if(datas.dt_txt == nextDay + " 00:00:00"){
-                    tempArray[0] = datas.main.temp
+                    tempArray[0] = Math.floor(datas.main.temp - 273.15)
                     humArray[0] = datas.main.humidity
+                    weatherArray[0] = datas.weather[0].main
                 } 
                 if(datas.dt_txt == afterNextDay + " 00:00:00"){
-                    tempArray[1] = datas.main.temp
+                    tempArray[1] = Math.floor(datas.main.temp - 273.15)
                     humArray[1] = datas.main.humidity
+                    weatherArray[1] = datas.weather[0].main
                 } 
                 if(datas.dt_txt == day_3 + " 00:00:00"){
-                    tempArray[2] = datas.main.temp
+                    tempArray[2] = Math.floor(datas.main.temp - 273.15)
                     humArray[2] = datas.main.humidity
-
+                    weatherArray[2] = datas.weather[0].main
                 }
                 if(datas.dt_txt == day_4 + " 00:00:00"){
-                    tempArray[3] = datas.main.temp
+                    tempArray[3] = Math.floor(datas.main.temp - 273.15)
                     humArray[3] = datas.main.humidity
-
+                    weatherArray[3] = datas.weather[0].main
                 }
                 if(datas.dt_txt == day_5 + " 00:00:00"){
-                    tempArray[4] = datas.main.temp
+                    tempArray[4] = Math.floor(datas.main.temp - 273.15)
                     humArray[4] = datas.main.humidity
+                    weatherArray[4] = datas.weather[0].main
                 }
             }
         })
+
+
         //console.log(tempArray)
         //console.log(humArray)
+        img.forEach(function(){
+            for(index = 0; index < weatherArray.length; index++){
+                if(weatherArray[index] == 'Clouds' || weatherArray[index]  == 'Haze'){
+                    console.log("here")
+                    img[index].src =  './Assets/clouds.png'
+                }
+                if(weatherArray[index]  == 'Clear'){ 
+                    img[index].src = 'Assets/sunny.png'
+                }
+                if(weatherArray[index]  == 'Rain'){ 
+                    img[index].src = 'Assets/rainy.png'
+                }
+                if(weatherArray[index]  == 'Snow'){
+                    img[index].src = 'Assets/snow.png'
+                }
+                img[index].style.display = "block";
+            }
+
+        })
         Tempera.forEach(function(){
-            Tempera[0].textContent = "Temp: " + tempArray[0] + "°F"
-            Tempera[1].textContent = "Temp: " + tempArray[1] + "°F"
-            Tempera[2].textContent = "Temp: " + tempArray[2] + "°F"
-            Tempera[3].textContent = "Temp: " + tempArray[3] + "°F"
-            Tempera[4].textContent = "Temp: " + tempArray[4] + "°F"
+            Tempera[0].textContent = "Temp: " + tempArray[0] + "°C"
+            Tempera[1].textContent = "Temp: " + tempArray[1] + "°C"
+            Tempera[2].textContent = "Temp: " + tempArray[2] + "°c"
+            Tempera[3].textContent = "Temp: " + tempArray[3] + "°C"
+            Tempera[4].textContent = "Temp: " + tempArray[4] + "°C"
         })
 
         humi.forEach(function(){
