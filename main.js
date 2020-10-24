@@ -213,6 +213,15 @@ function store(){
         p.textContent = cityName
         p.setAttribute("class",'btn btn-outline-secondary button')
         p.id = cityName
+        p.addEventListener("click",function(event){
+            event.preventDefault()
+            const currentDay = moment().format('M/D/YYYY')
+            const c = document.querySelector("#city")
+            c.textContent = p.id + " (" + currentDay + ")"
+             $.ajax({
+                url: currenturlquery + p.id +key
+            }).then(process).then(future(p.id)).catch(error)
+            })
     }else{ 
         console.log("im here")
         value.city +=","+ cityName
