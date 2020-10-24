@@ -60,10 +60,12 @@ div.boards h5, div.boards p{
     text-align: left;
 }
  
+#weather{
+    display:none;
+}
 .img{
     height:30px;
     width:30px;
-    display:inline;
 }
 
 .weather{
