@@ -33,11 +33,11 @@ function process(response){
     const lat = response.coord.lat
     const weather = response.weather[0].main
     const img = document.querySelector("#weather")
-    console.log(weather)
+    //console.log(weather)
      
     if(weather == 'Clouds' || weather == 'Haze'){
         console.log("here")
-        img.src =  './Assets/clouds.png'
+        img.src =  'Assets/clouds.png'
     }
     if(weather == 'Clear'){ 
         img.src = 'Assets/sunny.png'
@@ -46,9 +46,10 @@ function process(response){
         img.src = 'Assets/rainy.png'
     }
     if(weather == 'Snow'){
-        let src = 'Assets/snow.png'
+        img.src = 'Assets/snow.png'
     }
     img.setAttribute("class","img")
+    img.style.display = "inline-block"
     //console.log('temp',temp)
     
     const temperature = document.querySelector("#temperature")
@@ -113,11 +114,11 @@ function future(city){
         dates[3].textContent = day_4
         dates[4].textContent = day_5
     })
-    nextDay = moment().add(1,'days').format('YYYY-M-D')
-    afterNextDay = moment().add(2,'days').format('YYYY-M-D')
-    day_3 = moment().add(3,'days').format('YYYY-M-D')
-    day_4 = moment().add(4,'days').format('YYYY-M-D')
-    day_5 = moment().add(5,'days').format('YYYY-M-D')
+    nextDay = moment().add(1,'days').format('YYYY-M-DD')
+    afterNextDay = moment().add(2,'days').format('YYYY-M-DD')
+    day_3 = moment().add(3,'days').format('YYYY-M-DD')
+    day_4 = moment().add(4,'days').format('YYYY-M-DD')
+    day_5 = moment().add(5,'days').format('YYYY-M-DD')
 
     $.ajax({
         url : futureurlquery + city + key
@@ -161,7 +162,7 @@ function future(city){
         img.forEach(function(){
             for(index = 0; index < weatherArray.length; index++){
                 if(weatherArray[index] == 'Clouds' || weatherArray[index]  == 'Haze'){
-                    console.log("here")
+                    //console.log("here")
                     img[index].src =  './Assets/clouds.png'
                 }
                 if(weatherArray[index]  == 'Clear'){ 
@@ -223,7 +224,7 @@ function store(){
             }).then(process).then(future(p.id)).catch(error)
             })
     }else{ 
-        console.log("im here")
+        //console.log("im here")
         value.city +=","+ cityName
         localStorage.setItem('city',JSON.stringify(value))
         let array = value.city.split(',') 
